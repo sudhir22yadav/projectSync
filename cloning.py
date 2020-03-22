@@ -57,11 +57,11 @@ class projectSync:
         self.driver.find_element_by_xpath('/html/body/div[4]/main/div/form/div[3]/div[4]/ul/li[1]/details/details-menu/div[3]/div[1]/label[86]/span').click()
         self.driver.find_element_by_xpath("/html/body/div[4]/main/div/form/div[3]/button").click()
         sleep(2)
+        self.driver.close()
+        sleep(3)
        # can predict the git url because it is predictable
         #self.driver.close()
         rep_link = 'https://'+self.username+':'+c.token+'@github.com/sudhir22yadav/'+repo_name+'.git'
-        self.driver.close()
-
         print(rep_link)
         '''
         repo_link_drop= self.driver.find_element_by_xpath('/html/body/div[4]/div/main/div[2]/div/div[3]/span/details/summary')
