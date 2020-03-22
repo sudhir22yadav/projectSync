@@ -17,10 +17,11 @@ class projectSync:
     def login(self):
         self.driver.get('https://github.com/')
         sleep(4)
+        # Sign in Button
         login_button = self.driver.find_element_by_xpath("//a[contains(@href,'/login')]")
+        # dropdown menu to check sign in button
         drop_button = self.driver.find_element_by_tag_name('button')
-
-
+        # check if login button is visible or not
         if login_button.is_displayed() is False:
             sleep(2)
             drop_button.click()
@@ -29,7 +30,9 @@ class projectSync:
         else:
             login_button.click()
         sleep(1)
+        # login field
         login_field = self.driver.find_element_by_id("login_field")
+        # password field
         pw_field = self.driver.find_element_by_id("password")
         login_field.clear()
         sleep(1)
@@ -47,9 +50,9 @@ class projectSync:
         dropdown = self.driver.find_element_by_class_name("dropdown-caret")
         drop_button = self.driver.find_element_by_tag_name('button')
         profile = self.driver.find_element_by_xpath("//a[contains(@href,'https://github.com/sudhir22yadav')]")
-
+        # check if that '+' dropdown is visible or not
         if dropdown.is_displayed() is False:
-            # dropdown button
+            # dropdown button if '+' is not available
             drop_button.click()
             # profile
             profile.click()
@@ -61,6 +64,7 @@ class projectSync:
             new_repo_button = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/div[3]/div[3]/div[1]/form/div[2]/a")
             new_repo_button.click()
         else:
+            # if '+' is available
             dropdown.click()
             sleep(.380)
             # create new repo
@@ -68,30 +72,38 @@ class projectSync:
             create_new_repo.click()
             sleep(2)
         sleep(.224)
+        # repo field
         repo_name_field = self.driver.find_element_by_id('repository_name')
         repo_name_field.send_keys(self.repo_name)
         sleep(.245)
+        # repo description field
         desc_field = self.driver.find_element_by_id('repository_description')
         desc_field.send_keys(self.desc)
         sleep(0.2158)
+        # repo visibility choice
         visible = self.driver.find_element_by_id('repository_visibility_private')
         visible.click()
         sleep(.3568)
+        # repo initialization
         repo_init = self.driver.find_element_by_id('repository_auto_init')
         repo_init.click()
         sleep(0.4485)
+        # adding .gitignore
         add_gitignore = self.driver.find_element_by_xpath(
             '/html/body/div[4]/main/div/form/div[3]/div[4]/ul/li[1]/details/summary/span')
         add_gitignore.click()
         sleep(0.145)
+        # adding python files to .gitignore
         ignore_field = self.driver.find_element_by_id('context-ignore-filter-field')
         ignore_field.send_keys('Python')
         set_ignore_field = self.driver.find_element_by_xpath(
             '/html/body/div[4]/main/div/form/div[3]/div[4]/ul/li[1]/details/details-menu/div[3]/div[1]/label[86]/span')
         set_ignore_field.click()
+        # create repo button
         create_repo_button = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/form/div[3]/button")
         create_repo_button.click()
         sleep(4)
+        # closing browser
         self.driver.close()
 
     # can predict the git url because it is predictable
