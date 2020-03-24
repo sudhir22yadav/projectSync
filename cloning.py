@@ -6,20 +6,24 @@ from selenium import webdriver
 from selenium.webdriver.common import keys
 
 
-class projectSync:
+class ProjectSync:
     def __init__(self, username, password, repo_name, desc):
         self.repo_name = repo_name
         self.desc = desc
         self.driver = webdriver.Firefox()
         self.username = username
         self.password = password
+        self.login()
 
     def login(self):
+        # Open up github.com webpage
         self.driver.get('https://github.com/')
         sleep(4)
-        # Sign in Button
+        # Sign in Button if available
         login_button = self.driver.find_element_by_xpath("//a[contains(@href,'/login')]")
-        # dropdown menu to check sign in button
+
+        # drop down menu to check sign in button
+        # If sign in not available
         drop_button = self.driver.find_element_by_tag_name('button')
         # check if login button is visible or not
         if login_button.is_displayed() is False:
@@ -30,6 +34,8 @@ class projectSync:
         else:
             login_button.click()
         sleep(1)
+
+        # opens up a new webpage
         # login field
         login_field = self.driver.find_element_by_id("login_field")
         # password field
@@ -44,8 +50,10 @@ class projectSync:
         sleep(.75)
         pw_field.send_keys(keys.Keys.RETURN)
         sleep(2.26)
+        self.create_repo()
 
     def create_repo(self):
+        # Profile Dashboard opens up
         # Dropdown menu
         dropdown = self.driver.find_element_by_class_name("dropdown-caret")
         drop_button = self.driver.find_element_by_tag_name('button')
@@ -56,12 +64,15 @@ class projectSync:
             drop_button.click()
             # profile
             profile.click()
+
+            # New webpage opens up
             # repository tab
             repo_tab = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/div[3]/div[2]/nav/a[2]")
             repo_tab.click()
             sleep(2)
             # new repo green button
-            new_repo_button = self.driver.find_element_by_xpath("/html/body/div[4]/main/div/div[3]/div[3]/div[1]/form/div[2]/a")
+            new_repo_button = self.driver.find_element_by_xpath(
+                "/html/body/div[4]/main/div/div[3]/div[3]/div[1]/form/div[2]/a")
             new_repo_button.click()
         else:
             # if '+' is available
@@ -71,6 +82,8 @@ class projectSync:
             create_new_repo = self.driver.find_element_by_xpath("//a[contains(@href,'/new')]")
             create_new_repo.click()
             sleep(2)
+
+        # New webpage opens up
         sleep(.224)
         # repo field
         repo_name_field = self.driver.find_element_by_id('repository_name')
@@ -105,9 +118,9 @@ class projectSync:
         sleep(4)
         # closing browser
         self.driver.close()
+        self.clone()
 
-    # can predict the git url because it is predictable
-
+    # system commands will run after this
     def clone(self):
         rep_link = 'https://' + self.username + ':' + c.token + '@github.com/sudhir22yadav/' + self.repo_name + '.git'
         clone = 'git clone ' + rep_link + ' ~/github/' + self.repo_name + '/'
@@ -122,7 +135,4 @@ parser.add_argument('repo', help='Provide new project name')
 parser.add_argument('desc', help='Provide a description')
 args = parser.parse_args()
 
-bot = projectSync(c.user, c.pw, args.repo, args.desc)
-bot.login()
-bot.create_repo()
-bot.clone()
+bot = ProjectSync(c.user, c.pw, args.repo, args.desc)
