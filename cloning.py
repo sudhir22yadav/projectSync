@@ -101,7 +101,7 @@ class ProjectSync:
         repo_init = self.driver.find_element_by_id('repository_auto_init')
         repo_init.click()
         sleep(0.4485)
-        # adding .gitignore
+        # checking add .gitignore
         add_gitignore = self.driver.find_element_by_xpath(
             '/html/body/div[4]/main/div/form/div[3]/div[4]/ul/li[1]/details/summary/span')
         add_gitignore.click()
