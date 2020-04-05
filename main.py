@@ -7,12 +7,13 @@ from selenium.webdriver.common import keys
 
 
 class projectSync:
-    def __init__(self, username, password):
+    def __init__(self):
         #self.repo_name = repo_name
         #self.desc = desc
         self.driver = webdriver.Firefox()
-        self.username = username
-        self.password = password
+        self.username = c.user
+        self.password = c.pw
+        self.visible = c.visible
         self.driver.get('https://github.com/')
         sleep(4)
         login_button = self.driver.find_element_by_xpath("//a[contains(@href,'/login')]")
@@ -23,7 +24,7 @@ class projectSync:
             #login_button.click()
         else:
             login_button.click()
-        '''
+       
         login_field = self.driver.find_element_by_id("login_field")
         pw_field = self.driver.find_element_by_id("password")
         sleep(1)
@@ -55,7 +56,11 @@ class projectSync:
             sleep(.60)
             create_new_repo.click()
             sleep(2)
-        '''
-
-
-bot = projectSync(c.user, c.pw)
+        print('exited if loop')
+        if self.visible == False:
+            visible = self.driver.find_element_by_id('repository_visibility_private')
+            visible.click()
+        else:
+            visible = self.driver.find_element_by_id('repository_visibility_public')
+            visible.click()
+bot = projectSync()
