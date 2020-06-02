@@ -123,8 +123,8 @@ class ProjectSync:
     # system commands will run after this
     def clone(self):
         rep_link = 'https://' + self.username + ':' + c.token + '@github.com/sudhir22yadav/' + self.repo_name + '.git'
-        clone = 'git clone ' + rep_link + ' ~/github/' + self.repo_name + '/'
-        repo_dir = '~/github/' + self.repo_name + '/'
+        clone = 'git clone ' + rep_link + ' ~/projects/' + self.repo_name + '/'
+        #repo_dir = '~/projects/' + self.repo_name + '/'
         os.system(clone)
 
 
