@@ -133,3 +133,4 @@ dmypy.json
 creds.py
 .idea
 venv
+.vscode/
